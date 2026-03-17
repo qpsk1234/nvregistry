@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- タイトル: RegistryName [TypeName×Count] -->
+    <TextView
+        android:id="@+id/dialogTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="4dp" />
+
+    <!-- JSON元のペイロード概要 -->
+    <TextView
+        android:id="@+id/jsonValueText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="11sp"
+        android:fontFamily="monospace"
+        android:layout_marginBottom="8dp" />
+
+    <!-- ボタン行 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="4dp">
+
+        <Button
+            android:id="@+id/getButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="@string/btn_get" />
+
+        <Button
+            android:id="@+id/resetAllJsonButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="@string/btn_reset_all_json"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
+
+        <Button
+            android:id="@+id/closeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_close"
+            style="@style/Widget.MaterialComponents.Button.TextButton" />
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/dialogProgressBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:visibility="gone"
+        android:layout_marginBottom="4dp" />
+
+    <!-- コマンドログ -->
+    <ScrollView
+        android:id="@+id/resultScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:layout_marginBottom="6dp">
+
+        <TextView
+            android:id="@+id/resultTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#000000"
+            android:padding="6dp"
+            android:textColor="#00FF00"
+            android:textSize="10sp"
+            android:fontFamily="monospace"
+            android:textIsSelectable="true" />
+    </ScrollView>
+
+    <!-- ヘッダー行 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingStart="4dp"
+        android:layout_marginBottom="2dp">
+
+        <TextView android:layout_width="36dp" android:layout_height="wrap_content"
+            android:text="@string/label_idx" android:textSize="10sp" android:textColor="#888" />
+        <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="2" android:text="@string/label_hex"
+            android:textSize="10sp" android:textColor="#888" />
+        <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1.5" android:text="@string/label_dec"
+            android:textSize="10sp" android:textColor="#888" />
+        <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="2" android:text="@string/label_new_value"
+            android:textSize="10sp" android:textColor="#888" />
+        <TextView android:layout_width="100dp" android:layout_height="wrap_content"
+            android:text="" android:textSize="10sp" />
+    </LinearLayout>
+
+    <!-- インデックス別値リスト -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/nvValuesRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="280dp"
+        android:nestedScrollingEnabled="true" />
+
+</LinearLayout>

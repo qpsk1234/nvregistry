@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">NV Registry</string>
+
+    <!-- Buttons -->
+    <string name="btn_open_file">ファイルを開く</string>
+    <string name="btn_theme_light">☀ ライト</string>
+    <string name="btn_theme_dark">🌙 ダーク</string>
+    <string name="btn_history">履歴</string>
+    <string name="btn_language">EN</string>
+    <string name="btn_get">GET（現在値を取得）</string>
+    <string name="btn_set">SET</string>
+    <string name="btn_close">閉じる</string>
+    <string name="btn_clear_history">履歴をクリア</string>
+    <string name="btn_reset_all_json">全項目をJSON値にリセット</string>
+
+    <!-- Settings -->
+    <string name="settings_title">設定</string>
+    <string name="settings_display">表示</string>
+    <string name="settings_developer">開発者向け</string>
+    <string name="settings_lang_btn">Switch to English</string>
+    <string name="settings_debug_desc">ONにするとLogcatに詳細なコマンドログが出力されます。\nFilter: tag:ShellUtils | tag:RegistryEditDialog</string>
+
+    <!-- Hints -->
+    <string name="search_hint">RegistryNameで検索...</string>
+    <string name="value_hint">新しい値 (HEX形式, 例: 001A)</string>
+
+    <!-- Labels -->
+    <string name="label_idx">Idx</string>
+    <string name="label_hex">HEX</string>
+    <string name="label_dec">Dec</string>
+    <string name="label_new_value">新しい値(HEX)</string>
+    <string name="label_command_log">コマンドログ</string>
+
+    <!-- History -->
+    <string name="history_title">変更履歴</string>
+    <string name="history_empty">変更履歴はありません</string>
+    <string name="history_json_value">JSONの値: %s</string>
+    <string name="history_before_value">変更前: %s</string>
+    <string name="history_new_value">設定値: %s</string>
+    <string name="history_after_get">SET後GET結果:\n%s</string>
+    <string name="history_success">✓ 成功</string>
+    <string name="history_failure">✗ 要確認</string>
+
+    <!-- Messages -->
+    <string name="msg_loading">読み込み中...</string>
+    <string name="msg_loaded">%d 件のデータを読み込みました</string>
+    <string name="msg_load_error">JSONのロードに失敗しました: %s</string>
+    <string name="msg_get_executing">GET実行中 (tail方式でレスポンス待機)...</string>
+    <string name="msg_set_executing">SET実行中...</string>
+    <string name="msg_updated">✓ %d個の値を更新しました</string>
+    <string name="msg_success">✓ 成功</string>
+    <string name="msg_warning">⚠ 要確認</string>
+    <string name="msg_json_summary">JSON Payload: %s</string>
+    <string name="msg_reset_success">✓ 全行をJSON値にリセットしました（SETはしていません）</string>
+    <string name="msg_parse_failed">⚠ パースに失敗 (payload=%s)</string>
+    <string name="msg_parse_error">⚠ +GOOGGETNV: パターンが見つかりません</string>
+
+    <!-- Registry Adapter -->
+    <string name="indicator_mismatched">⚠ JSON mismatch</string>
+    <string name="indicator_changed">✓ SET済</string>
+
+    <style name="Theme.NVRegistry" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="colorPrimary">#BB86FC</item>
+        <item name="colorPrimaryVariant">#3700B3</item>
+        <item name="colorOnPrimary">#000000</item>
+        <item name="colorSecondary">#03DAC5</item>
+        <item name="colorOnSecondary">#000000</item>
+        <item name="android:colorBackground">#121212</item>
+        <item name="android:statusBarColor">#000000</item>
+    </style>
+
+</resources>

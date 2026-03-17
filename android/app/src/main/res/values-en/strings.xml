@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">NV Registry</string>
+
+    <!-- Buttons -->
+    <string name="btn_open_file">Open File</string>
+    <string name="btn_theme_light">☀ Light</string>
+    <string name="btn_theme_dark">🌙 Dark</string>
+    <string name="btn_history">History</string>
+    <string name="btn_language">JA</string>
+    <string name="btn_get">GET (Read Values)</string>
+    <string name="btn_set">SET</string>
+    <string name="btn_close">Close</string>
+    <string name="btn_clear_history">Clear History</string>
+    <string name="btn_reset_all_json">Reset all to JSON</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Settings</string>
+    <string name="settings_display">Display</string>
+    <string name="settings_developer">Developer</string>
+    <string name="settings_lang_btn">日本語に切替</string>
+    <string name="settings_debug_desc">When ON, detailed command logs will be printed to Logcat.\nFilter: tag:ShellUtils | tag:RegistryEditDialog</string>
+
+    <!-- Hints -->
+    <string name="search_hint">Search RegistryName...</string>
+    <string name="value_hint">New value (HEX, e.g. 001A)</string>
+
+    <!-- Labels -->
+    <string name="label_idx">Idx</string>
+    <string name="label_hex">HEX</string>
+    <string name="label_dec">Dec</string>
+    <string name="label_new_value">New Value (HEX)</string>
+    <string name="label_command_log">Command Log</string>
+
+    <!-- History -->
+    <string name="history_title">Change History</string>
+    <string name="history_empty">No change history found</string>
+    <string name="history_json_value">JSON value: %s</string>
+    <string name="history_before_value">Before: %s</string>
+    <string name="history_new_value">Set to: %s</string>
+    <string name="history_after_get">Post-SET GET:\n%s</string>
+    <string name="history_success">✓ Success</string>
+    <string name="history_failure">✗ Check required</string>
+
+    <!-- Messages -->
+    <string name="msg_loading">Loading...</string>
+    <string name="msg_loaded">Loaded %d entries</string>
+    <string name="msg_load_error">Failed to load JSON: %s</string>
+    <string name="msg_get_executing">Executing GET (tail mode, waiting for response)...</string>
+    <string name="msg_set_executing">Executing SET...</string>
+    <string name="msg_updated">✓ Updated %d values</string>
+    <string name="msg_success">✓ Success</string>
+    <string name="msg_warning">⚠ Check required</string>
+    <string name="msg_json_summary">JSON Payload: %s</string>
+    <string name="msg_reset_success">✓ All rows have been reset to JSON values (NOT saved to device)</string>
+    <string name="msg_parse_failed">⚠ Parse failed (payload=%s)</string>
+    <string name="msg_parse_error">⚠ +GOOGGETNV: pattern not found</string>
+
+    <!-- Registry Adapter -->
+    <string name="indicator_mismatched">⚠ JSON mismatch</string>
+    <string name="indicator_changed">✓ SET</string>
+</resources>

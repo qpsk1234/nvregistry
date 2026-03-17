@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="8dp"
+    android:layout_marginBottom="2dp">
+
+    <!-- RegistryName -->
+    <TextView
+        android:id="@+id/nameTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="13sp"
+        android:textStyle="bold" />
+
+    <!-- 変更済みインジケーター -->
+    <TextView
+        android:id="@+id/changedIndicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="10sp"
+        android:textStyle="italic"
+        android:visibility="gone"
+        android:layout_marginTop="1dp" />
+
+    <!-- TypeName / Size / Count -->
+    <TextView
+        android:id="@+id/typeTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="10sp"
+        android:fontFamily="monospace"
+        android:layout_marginTop="2dp" />
+
+    <!-- HEX表示 -->
+    <TextView
+        android:id="@+id/hexTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="10sp"
+        android:fontFamily="monospace"
+        android:layout_marginTop="1dp" />
+
+    <!-- Decimal表示 -->
+    <TextView
+        android:id="@+id/decTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="10sp"
+        android:fontFamily="monospace"
+        android:layout_marginTop="1dp" />
+
+</LinearLayout>

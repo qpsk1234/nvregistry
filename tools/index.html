@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NV Registry Viewer</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+</head>
+
+<body class="black-theme">
+    <div class="container">
+        <header>
+            <div class="top-bar">
+                <div class="status-bar" id="statusBar">JSONファイルを選択してください</div>
+                <div class="theme-switch">
+                    <button class="btn-toggle active" id="themeBlackBtn">Black</button>
+                    <button class="btn-toggle" id="themeWhiteBtn">White</button>
+                </div>
+            </div>
+
+            <h1>NV Registry Viewer</h1>
+
+            <div class="mode-switch-container" style="margin-bottom: 1.5rem;">
+                <div class="mode-switch">
+                    <button class="btn-toggle active" id="modeNormalBtn">通常モード</button>
+                    <button class="btn-toggle" id="modeCompareBtn">比較モード</button>
+                </div>
+            </div>
+
+            <div class="file-inputs">
+                <div class="file-input-group">
+                    <label for="fileInput1">ファイル A:</label>
+                    <input type="file" id="fileInput1" accept=".json">
+                </div>
+                <div class="file-input-group" id="fileInput2Group" style="display: none;">
+                    <label for="fileInput2">ファイル B:</label>
+                    <input type="file" id="fileInput2" accept=".json">
+                </div>
+            </div>
+
+            <div class="controls">
+                <div class="search-container">
+                    <input type="text" id="searchInput" placeholder="RegistryNameで検索..." disabled>
+                </div>
+                <div class="filter-container" id="diffFilterContainer" style="display: none;">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="diffOnlyCheckbox"> 差分のみ
+                    </label>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <div id="resultsCount" class="results-count"></div>
+            <div class="table-container">
+                <table id="registryTable">
+                    <thead id="tableHeader">
+                        <!-- Header will be dynamic -->
+                    </thead>
+                    <tbody id="registryBody">
+                        <!-- Data will be injected here -->
+                    </tbody>
+                </table>
+            </div>
+            <div id="loadMoreContainer" class="load-more-container" style="display: none;">
+                <button id="loadMoreBtn">さらに読み込む</button>
+            </div>
+        </main>
+    </div>
+    <script src="app.js"></script>
+</body>
+
+</html>
