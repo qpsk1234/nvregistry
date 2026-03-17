@@ -1,13 +1,13 @@
-package com.example.nvregistry.adapter
+package net.snugplace.nvregistry.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.nvregistry.R
-import com.example.nvregistry.model.RegistryEntry
-import com.example.nvregistry.util.PayloadParser
+import net.snugplace.nvregistry.R
+import net.snugplace.nvregistry.model.RegistryEntry
+import net.snugplace.nvregistry.util.PayloadParser
 
 class RegistryAdapter(private val onItemClick: (RegistryEntry) -> Unit) :
     RecyclerView.Adapter<RegistryAdapter.ViewHolder>() {
@@ -16,6 +16,7 @@ class RegistryAdapter(private val onItemClick: (RegistryEntry) -> Unit) :
     private var isDarkTheme: Boolean = true
     private var changedNames: Set<String> = emptySet()
     private var mismatchedNames: Set<String> = emptySet()
+    private var latestPayloads: Map<String, String> = emptyMap()
 
     fun submitList(newList: List<RegistryEntry>) {
         items = newList
@@ -28,9 +29,14 @@ class RegistryAdapter(private val onItemClick: (RegistryEntry) -> Unit) :
     }
 
     /** 差分情報を更新する（JSON読込後にMainActivityから呼ぶ） */
-    fun updateDiffState(changed: Set<String>, mismatched: Set<String>) {
+    fun updateDiffState(
+        changed: Set<String>,
+        mismatched: Set<String>,
+        latestMap: Map<String, String>
+    ) {
         changedNames = changed
         mismatchedNames = mismatched
+        latestPayloads = latestMap
         notifyDataSetChanged()
     }
 
@@ -41,8 +47,9 @@ class RegistryAdapter(private val onItemClick: (RegistryEntry) -> Unit) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(items[position], isDarkTheme, changedNames, mismatchedNames)
-        holder.itemView.setOnClickListener { onItemClick(items[position]) }
+        val item = items[position]
+        holder.bind(item, isDarkTheme, changedNames, mismatchedNames, latestPayloads[item.RegistryName])
+        holder.itemView.setOnClickListener { onItemClick(item) }
     }
 
     override fun getItemCount(): Int = items.size
@@ -58,7 +65,8 @@ class RegistryAdapter(private val onItemClick: (RegistryEntry) -> Unit) :
             item: RegistryEntry,
             isDark: Boolean,
             changedNames: Set<String>,
-            mismatchedNames: Set<String>
+            mismatchedNames: Set<String>,
+            latestPayload: String?
         ) {
             val isMismatched = item.RegistryName in mismatchedNames
             val isChanged = item.RegistryName in changedNames
@@ -99,7 +107,8 @@ class RegistryAdapter(private val onItemClick: (RegistryEntry) -> Unit) :
             nameTextView.text = item.RegistryName
             typeTextView.text = "${item.TypeName}  size=${item.Size}  count=${item.Count}"
 
-            val parsed = PayloadParser.parse(item.Payload, item.TypeName, item.Size, item.Count)
+            val actualPayload = latestPayload ?: item.Payload
+            val parsed = PayloadParser.parse(actualPayload, item.TypeName, item.Size, item.Count)
             hexTextView.text = PayloadParser.summarize(parsed, item.TypeName, item.Count)
             decTextView.text = PayloadParser.summarizeDec(parsed, item.Count)
         }

@@ -1,4 +1,4 @@
-package com.example.nvregistry.util
+package net.snugplace.nvregistry.util
 
 import android.content.Context
 

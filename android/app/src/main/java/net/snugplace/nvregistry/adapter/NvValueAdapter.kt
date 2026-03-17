@@ -1,4 +1,4 @@
-package com.example.nvregistry.adapter
+package net.snugplace.nvregistry.adapter
 
 import android.graphics.Color
 import android.view.LayoutInflater
@@ -8,8 +8,8 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.nvregistry.R
-import com.example.nvregistry.util.PayloadParser
+import net.snugplace.nvregistry.R
+import net.snugplace.nvregistry.util.PayloadParser
 
 class NvValueAdapter(
     private var elements: List<PayloadParser.ParsedElement>,

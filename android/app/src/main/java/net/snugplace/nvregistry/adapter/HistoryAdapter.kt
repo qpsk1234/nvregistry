@@ -1,12 +1,12 @@
-package com.example.nvregistry.adapter
+package net.snugplace.nvregistry.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.nvregistry.R
-import com.example.nvregistry.model.ChangeRecord
+import net.snugplace.nvregistry.R
+import net.snugplace.nvregistry.model.ChangeRecord
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale

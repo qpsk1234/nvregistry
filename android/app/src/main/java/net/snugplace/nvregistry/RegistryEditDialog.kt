@@ -1,4 +1,4 @@
-package com.example.nvregistry
+package net.snugplace.nvregistry
 
 import android.app.Dialog
 import android.content.Context
@@ -12,13 +12,13 @@ import android.widget.ScrollView
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.nvregistry.adapter.NvValueAdapter
-import com.example.nvregistry.model.ChangeRecord
-import com.example.nvregistry.model.RegistryEntry
-import com.example.nvregistry.util.ChangeHistoryManager
-import com.example.nvregistry.util.DebugConfig
-import com.example.nvregistry.util.PayloadParser
-import com.example.nvregistry.util.ShellUtils
+import net.snugplace.nvregistry.adapter.NvValueAdapter
+import net.snugplace.nvregistry.model.ChangeRecord
+import net.snugplace.nvregistry.model.RegistryEntry
+import net.snugplace.nvregistry.util.ChangeHistoryManager
+import net.snugplace.nvregistry.util.DebugConfig
+import net.snugplace.nvregistry.util.PayloadParser
+import net.snugplace.nvregistry.util.ShellUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

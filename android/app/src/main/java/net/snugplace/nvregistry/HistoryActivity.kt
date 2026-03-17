@@ -1,4 +1,4 @@
-package com.example.nvregistry
+package net.snugplace.nvregistry
 
 import android.os.Bundle
 import android.view.View
@@ -7,9 +7,9 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.nvregistry.adapter.HistoryAdapter
-import com.example.nvregistry.util.ChangeHistoryManager
-import com.example.nvregistry.util.DebugConfig
+import net.snugplace.nvregistry.adapter.HistoryAdapter
+import net.snugplace.nvregistry.util.ChangeHistoryManager
+import net.snugplace.nvregistry.util.DebugConfig
 
 class HistoryActivity : AppCompatActivity() {
 

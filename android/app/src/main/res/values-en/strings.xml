@@ -59,4 +59,10 @@
     <!-- Registry Adapter -->
     <string name="indicator_mismatched">⚠ JSON mismatch</string>
     <string name="indicator_changed">✓ SET</string>
+
+    <string-array name="filter_options">
+        <item>Show All</item>
+        <item>Changed (SET/Mismatch) Only</item>
+        <item>Mismatch Only</item>
+    </string-array>
 </resources>

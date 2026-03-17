@@ -1,4 +1,4 @@
-package com.example.nvregistry
+package net.snugplace.nvregistry
 
 import android.content.Intent
 import android.net.Uri
@@ -6,19 +6,23 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.ProgressBar
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.nvregistry.adapter.RegistryAdapter
-import com.example.nvregistry.model.RegistryEntry
-import com.example.nvregistry.util.ChangeHistoryManager
-import com.example.nvregistry.util.DebugConfig
+import net.snugplace.nvregistry.adapter.RegistryAdapter
+import net.snugplace.nvregistry.model.RegistryEntry
+import net.snugplace.nvregistry.util.ChangeHistoryManager
+import net.snugplace.nvregistry.util.DebugConfig
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -36,7 +40,12 @@ class MainActivity : AppCompatActivity() {
     private lateinit var historyButton: Button
     private lateinit var settingsButton: Button
     private lateinit var progressBar: ProgressBar
+    private lateinit var filterSpinner: Spinner
+    private lateinit var sortCheckBox: CheckBox
+
     private var allEntries: List<RegistryEntry> = emptyList()
+    private var changedNames: Set<String> = emptySet()
+    private var mismatchedNames: Set<String> = emptySet()
 
     // テーマ状態はSettingsActivityのSharedPrefsから読む
     private val isDarkTheme: Boolean
@@ -59,6 +68,8 @@ class MainActivity : AppCompatActivity() {
         historyButton = findViewById(R.id.historyButton)
         settingsButton = findViewById(R.id.settingsButton)
         progressBar = findViewById(R.id.progressBar)
+        filterSpinner = findViewById(R.id.filterSpinner)
+        sortCheckBox = findViewById(R.id.sortCheckBox)
 
         adapter = RegistryAdapter { entry ->
             RegistryEditDialog(this, entry, isDarkTheme) { }.show()
@@ -81,10 +92,21 @@ class MainActivity : AppCompatActivity() {
         searchEditText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                filterData(s.toString())
+                applyFilterAndSort()
             }
             override fun afterTextChanged(s: Editable?) {}
         })
+
+        filterSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                applyFilterAndSort()
+            }
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+
+        sortCheckBox.setOnCheckedChangeListener { _, _ ->
+            applyFilterAndSort()
+        }
 
         applyTheme()
     }
@@ -99,9 +121,11 @@ class MainActivity : AppCompatActivity() {
     private fun refreshDiffState() {
         if (allEntries.isEmpty()) return
         val history = ChangeHistoryManager.loadHistory(this)
-        val changed = ChangeHistoryManager.getChangedNames(history)
-        val mismatched = ChangeHistoryManager.getMismatchedNames(history, allEntries)
-        adapter.updateDiffState(changed, mismatched)
+        changedNames = ChangeHistoryManager.getChangedNames(history)
+        mismatchedNames = ChangeHistoryManager.getMismatchedNames(history, allEntries)
+        val latestPayloads = ChangeHistoryManager.getLatestPayloads(history)
+        adapter.updateDiffState(changedNames, mismatchedNames, latestPayloads)
+        applyFilterAndSort()
     }
 
     private fun applyTheme() {
@@ -113,6 +137,28 @@ class MainActivity : AppCompatActivity() {
         window.decorView.setBackgroundColor(rootBg)
         searchEditText.setTextColor(textColor)
         searchEditText.setHintTextColor(hintColor)
+        sortCheckBox.setTextColor(textColor)
+
+        val spinnerItems = resources.getStringArray(R.array.filter_options)
+        val spinnerAdapter = object : ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, spinnerItems) {
+            override fun getView(position: Int, convertView: View?, parent: android.view.ViewGroup): View {
+                val view = super.getView(position, convertView, parent) as android.widget.TextView
+                view.setTextColor(textColor)
+                return view
+            }
+            override fun getDropDownView(position: Int, convertView: View?, parent: android.view.ViewGroup): View {
+                val view = super.getDropDownView(position, convertView, parent) as android.widget.TextView
+                view.setTextColor(textColor)
+                view.setBackgroundColor(rootBg)
+                return view
+            }
+        }
+        val currentSelection = filterSpinner.selectedItemPosition
+        filterSpinner.adapter = spinnerAdapter
+        if (currentSelection != AdapterView.INVALID_POSITION) {
+            filterSpinner.setSelection(currentSelection, false)
+        }
+
         adapter.setDarkTheme(dark)
     }
 
@@ -150,10 +196,25 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun filterData(query: String) {
-        val filtered = allEntries.filter {
+    private fun applyFilterAndSort() {
+        val query = searchEditText.text.toString()
+        val filterPos = filterSpinner.selectedItemPosition // 0 = 全て, 1 = 変更済み, 2 = JSON不一致
+        val sortByDiff = sortCheckBox.isChecked
+
+        var list = allEntries.filter {
             it.RegistryName.contains(query, ignoreCase = true)
         }
-        adapter.submitList(filtered)
+
+        if (filterPos == 1) {
+            list = list.filter { it.RegistryName in changedNames || it.RegistryName in mismatchedNames }
+        } else if (filterPos == 2) {
+            list = list.filter { it.RegistryName in mismatchedNames }
+        }
+
+        if (sortByDiff) {
+            list = list.sortedByDescending { it.RegistryName in changedNames || it.RegistryName in mismatchedNames }
+        }
+
+        adapter.submitList(list)
     }
 }

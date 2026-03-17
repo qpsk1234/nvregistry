@@ -1,4 +1,4 @@
-package com.example.nvregistry
+package net.snugplace.nvregistry
 
 import android.os.Bundle
 import android.widget.Button
@@ -8,7 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
-import com.example.nvregistry.util.DebugConfig
+import net.snugplace.nvregistry.util.DebugConfig
 
 class SettingsActivity : AppCompatActivity() {
 
@@ -28,6 +28,8 @@ class SettingsActivity : AppCompatActivity() {
             val dark = sharedPref.getBoolean("is_dark_theme", true)
             sharedPref.edit().putBoolean("is_dark_theme", !dark).apply()
             updateThemeButton(themeButton)
+            // 即時反映のためにActivityを再生成する
+            recreate()
         }
 
         // 言語切替

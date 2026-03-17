@@ -1,4 +1,4 @@
-package com.example.nvregistry.util
+package net.snugplace.nvregistry.util
 
 object PayloadParser {
 
@@ -86,5 +86,21 @@ object PayloadParser {
         val shown = elements.take(maxShow).joinToString(", ") { it.decValue.toString() }
         val suffix = if (elements.size < count) " ... +${count - elements.size}more" else ""
         return "[$shown$suffix]"
+    }
+
+    /**
+     * AT+GOOGGETNVのレスポンス文字列(複数行含む)から、統合されたPayload文字列(HEXのカンマ区切り)を復元する
+     */
+    fun parseRawGetResultToPayload(result: String): String? {
+        val lineRegex = """\+GOOGGETNV:\s*"[^"]+",\s*(\d+),\s*"([^"]*)"""".toRegex()
+        val matches = lineRegex.findAll(result).toList()
+        if (matches.isEmpty()) return null
+        if (matches.size == 1) return matches[0].groupValues[2].trim()
+
+        return matches
+            .map { Pair(it.groupValues[1].toIntOrNull() ?: 0, it.groupValues[2]) }
+            .sortedBy { it.first }
+            .flatMap { (_, v) -> v.split(",").map { it.trim() }.filter { it.isNotEmpty() } }
+            .joinToString(",")
     }
 }

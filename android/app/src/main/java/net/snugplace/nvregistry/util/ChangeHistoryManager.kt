@@ -1,8 +1,8 @@
-package com.example.nvregistry.util
+package net.snugplace.nvregistry.util
 
 import android.content.Context
-import com.example.nvregistry.model.ChangeRecord
-import com.example.nvregistry.model.RegistryEntry
+import net.snugplace.nvregistry.model.ChangeRecord
+import net.snugplace.nvregistry.model.RegistryEntry
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import java.io.File
@@ -78,5 +78,20 @@ object ChangeHistoryManager {
             TypeName = record.typeName,
             Payload = record.jsonPayload
         )
+    }
+
+    /**
+     * SET成功した最新レコードから、RegistryNameごとの最新Payload文字列マップを取得する
+     */
+    fun getLatestPayloads(history: List<ChangeRecord>): Map<String, String> {
+        return history
+            .filter { it.success }
+            .groupBy { it.registryName.substringBefore("[") }
+            .mapNotNull { (baseName, records) ->
+                val latest = records.first()
+                val payload = PayloadParser.parseRawGetResultToPayload(latest.postSetGetResult)
+                if (payload != null) baseName to payload else null
+            }
+            .toMap()
     }
 }

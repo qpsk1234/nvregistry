@@ -1,2 +1,2 @@
 # Add project specific ProGuard rules here.
--keep class com.example.nvregistry.model.** { *; }
+-keep class net.snugplace.nvregistry.model.** { *; }

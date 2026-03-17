@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.nvregistry'
+    namespace 'net.snugplace.nvregistry'
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.example.nvregistry"
+        applicationId "net.snugplace.nvregistry"
         minSdk 26
         targetSdk 34
         versionCode 1

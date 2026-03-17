@@ -60,6 +60,12 @@
     <string name="indicator_mismatched">⚠ JSON mismatch</string>
     <string name="indicator_changed">✓ SET済</string>
 
+    <string-array name="filter_options">
+        <item>すべて表示</item>
+        <item>変更済み (SET/不一致) のみ</item>
+        <item>不一致 (mismatch) のみ</item>
+    </string-array>
+
     <style name="Theme.NVRegistry" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <item name="colorPrimary">#BB86FC</item>
         <item name="colorPrimaryVariant">#3700B3</item>

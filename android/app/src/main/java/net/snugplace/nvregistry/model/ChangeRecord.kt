@@ -1,4 +1,4 @@
-package com.example.nvregistry.model
+package net.snugplace.nvregistry.model
 
 import kotlinx.serialization.Serializable
 
