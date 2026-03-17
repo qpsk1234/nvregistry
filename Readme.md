@@ -1,8 +1,6 @@
 # NV Registry Viewer for Android
 
-<p align="center">
-  <img src="docs/icon.png" alt="NV Registry Viewer" width="120" />
-</p>
+🤖 **Note:** This application was entirely created and developed by AI (Antigravity).
 
 Android application to display, read, and write NV (Non-Volatile) Registry values on Pixel 8/9/10 series devices using AT commands via `/dev/umts_router`.
 
@@ -95,6 +93,8 @@ MIT License
 ---
 
 # NV Registry Viewer — 日本語説明
+
+🤖 **注意:** このアプリケーションはすべてAI（Antigravity）によって作成・開発されました。
 
 Pixel 8/9/10シリーズ向けのNVレジストリ閲覧・書き込みAndroidアプリです。  
 `/dev/umts_router` 経由でATコマンドを使用してNV値を読み書きします。
