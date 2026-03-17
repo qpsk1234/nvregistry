@@ -19,7 +19,8 @@ object PayloadParser {
         val hexPadLen = size * 2
         val result = mutableListOf<ParsedElement>()
 
-        for (i in 0 until count) {
+        val actualCount = maxOf(count, (tokens.size + size - 1) / size)
+        for (i in 0 until actualCount) {
             val startByte = i * size
             if (startByte >= tokens.size) break
 
@@ -73,7 +74,7 @@ object PayloadParser {
         if (elements.isEmpty()) return "(empty)"
         val maxShow = 5
         val shown = elements.take(maxShow).joinToString(", ") { it.hexDisplay }
-        val suffix = if (elements.size < count) " ... +${count - elements.size}more" else ""
+        val suffix = if (elements.size > maxShow) " ... +${elements.size - maxShow}more" else ""
         return "[$shown$suffix]"
     }
 
@@ -84,7 +85,7 @@ object PayloadParser {
         if (elements.isEmpty()) return "(empty)"
         val maxShow = 5
         val shown = elements.take(maxShow).joinToString(", ") { it.decValue.toString() }
-        val suffix = if (elements.size < count) " ... +${count - elements.size}more" else ""
+        val suffix = if (elements.size > maxShow) " ... +${elements.size - maxShow}more" else ""
         return "[$shown$suffix]"
     }
 

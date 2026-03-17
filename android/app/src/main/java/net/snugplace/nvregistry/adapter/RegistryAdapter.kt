@@ -105,10 +105,13 @@ class RegistryAdapter(private val onItemClick: (RegistryEntry) -> Unit) :
             decTextView.setTextColor(decColor)
 
             nameTextView.text = item.RegistryName
-            typeTextView.text = "${item.TypeName}  size=${item.Size}  count=${item.Count}"
 
             val actualPayload = latestPayload ?: item.Payload
             val parsed = PayloadParser.parse(actualPayload, item.TypeName, item.Size, item.Count)
+
+            val displayCount = if (parsed.size != item.Count) "${item.Count} (actual: ${parsed.size})" else "${item.Count}"
+            typeTextView.text = "${item.TypeName}  size=${item.Size}  count=$displayCount"
+
             hexTextView.text = PayloadParser.summarize(parsed, item.TypeName, item.Count)
             decTextView.text = PayloadParser.summarizeDec(parsed, item.Count)
         }
