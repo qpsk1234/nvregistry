@@ -169,6 +169,24 @@ class RegistryEditDialog(
                 if (newElements != null && newElements.isNotEmpty()) {
                     parsedElements = newElements
                     nvAdapter.updateElements(newElements)
+
+                    val fetchedPayload = PayloadParser.parseRawGetResultToPayload(result)
+                    if (fetchedPayload != null && fetchedPayload.replace(" ", "").lowercase() != entry.Payload.replace(" ", "").lowercase()) {
+                        // JSONと差分がある場合は履歴に保存しておく（TOP画面でも色が変わるようになる）
+                        ChangeHistoryManager.addRecord(context, ChangeRecord(
+                            timestamp = System.currentTimeMillis(),
+                            registryName = "${entry.RegistryName}[GET]",
+                            jsonPayload = entry.Payload,
+                            valueBeforeChange = entry.Payload,
+                            newValue = "(GET diff)",
+                            postSetGetResult = result,
+                            success = true,
+                            typeName = entry.TypeName,
+                            size = entry.Size,
+                            count = entry.Count,
+                            index = 0
+                        ))
+                    }
                 }
             }
         }

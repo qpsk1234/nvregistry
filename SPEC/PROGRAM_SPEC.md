@@ -7,10 +7,10 @@
 ## 2. アーキテクチャ構成
 
 ### 2.1 パッケージ構成
-- **`com.example.nvregistry`**: メインUI（Activity, Dialog）
-- **`com.example.nvregistry.adapter`**: RecyclerView用アダプタークラス
-- **`com.example.nvregistry.model`**: データモデル（JSONマップ用、履歴保存用）
-- **`com.example.nvregistry.util`**: ビジネスロジック、コマンド実行、永続化処理
+- **`net.snugplace.nvregistry`**: メインUI（Activity, Dialog）
+- **`net.snugplace.nvregistry.adapter`**: RecyclerView用アダプタークラス
+- **`net.snugplace.nvregistry.model`**: データモデル（JSONマップ用、履歴保存用）
+- **`net.snugplace.nvregistry.util`**: ビジネスロジック、コマンド実行、永続化処理
 
 ### 2.2 クラス構造
 
@@ -141,6 +141,9 @@ OK
 +GOOGGETNV: "NAME",1,"19,00"
 OK
 ```
+
+**差分記録の連動：**
+GET実行後、復元したPayload値が元のJSONのPayload値（スペース除去比較など）と相違していることが判明した場合、自動的に「GET diff」として `ChangeRecord` へ履歴に追加されます。これにより、手動でSETしていなくてもTOP画面で緑色にハイライトされます。
 
 ### 4.2 SET コマンド
 指定したインデックス (`<idx>`) に対して、所定のバイト数（リトルエンディアン・カンマ区切り）を書き込みます。
